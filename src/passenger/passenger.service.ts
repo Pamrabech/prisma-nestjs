@@ -10,22 +10,35 @@ export class PassengerService {
 constructor(private readonly prisma: PrismaService){}
 
   create(createPassengerDto: CreatePassengerDto) {
-    return 'This action adds a new passenger';
+    return this.prisma.passenger.create({
+      data: {
+        ...createPassengerDto,
+
+      }  
+        });
   }
 
   findAll() {
-    return `This action returns all passenger`;
+    return this.prisma.passenger.findMany();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} passenger`;
+    return this.prisma.passenger.findUnique({
+      where: { id },
+    });
   }
 
   update(id: number, updatePassengerDto: UpdatePassengerDto) {
-    return `This action updates a #${id} passenger`;
+    return this.prisma.passenger.update({
+      where: { id },
+      data: updatePassengerDto
+
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} passenger`;
+    return this.prisma.passenger.delete ({
+      where: { id },
+    })
   }
 }
